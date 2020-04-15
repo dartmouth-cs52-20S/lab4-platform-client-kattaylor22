@@ -1,0 +1,18 @@
+{
+  "name": "starterpack-kattaylor22",
+  "version": "y",
+  "description": "y",
+  "main": "src/index.js",
+  "repository": "https://github.com/dartmouth-cs52-20S/starterpack-kattaylor22.git",
+  "author": "Katherine Taylor <katherine.j.taylor.22@dartmouth.edu>",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "devDependencies": {
+    "webpack": "^4.42.1",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.10.3"
+  }
+}
