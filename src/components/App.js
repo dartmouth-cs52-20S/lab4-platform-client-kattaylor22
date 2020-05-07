@@ -1,54 +1,70 @@
 /* eslint-disable linebreak-style */
-// import React from 'react';
-// import ReactDOM from 'react-dom';
-// import {
-//   BrowserRouter as Router, Switch, Route, NavLink,
-// } from 'react-router-dom';
-// import '../style.scss';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import {
+  BrowserRouter as Router, Switch, Route, NavLink,
+} from 'react-router-dom';
+import { fetchPosts } from '../actions/index';
+import CreatePost from './CreatePost';
+import Posts from './Posts';
+import Post from './Post';
 
-// const Nav = (props) => {
-//   return (
-//     <nav>
-//       <ul>
-//         <li><NavLink to="/" exact>Home</NavLink></li>
-//         <li><NavLink to="/about">About</NavLink></li>
-//         <li><NavLink to="/test/id1">test id1</NavLink></li>
-//         <li><NavLink to="/test/id2">test id2</NavLink></li>
-//       </ul>
-//     </nav>
-//   );
-// };
 
-// const About = (props) => {
-//   return <div> All there is to know about me </div>;
-// };
+const Nav = (props) => {
+  return (
+    <nav id="nav">
+      <ul>
+        <li><NavLink id="link" to="/" exact>Posts</NavLink></li>
+        <li><NavLink id="link" to="/posts/new">New Post</NavLink></li>
+        {/* <li><NavLink id="link" to="/posts/id1">test id1</NavLink></li> */}
+        {/* <li><NavLink to={posts/${post.id}}>Post id1</NavLink></li> */}
+      </ul>
+    </nav>
+  );
+};
 
-// const Welcome = (props) => {
-//   return <div>Welcome</div>;
-// };
+const NewPost = (props) => {
+  return (
+    <div>
+      <CreatePost />
+    </div>
+  );
+};
 
-// const Test = (props) => {
-//   return <div> ID: {props.match.params.id} </div>;
-// };
+// function mapStateToProps(reduxState) {
+//   return {
+//     posts: reduxState.posts,
+//     // currentPost: reduxState.posts.current,
+//   };
+// }
 
-// const FallBack = (props) => {
-//   return <div>URL Not Found</div>;
-// };
+// eslint-disable-next-line react/prefer-stateless-function
+class App extends Component {
+  // eslint-disable-next-line no-useless-constructor
+  constructor(props) {
+    super(props);
+  }
 
-// const App = (props) => {
-//   return (
-//     <Router>
-//       <div>
-//         <Nav />
-//         <Switch>
-//           <Route exact path="/" component={Welcome} />
-//           <Route path="/about" component={About} />
-//           <Route exact path="/test/:id" component={Test} />
-//           <Route component={FallBack} />
-//         </Switch>
-//       </div>
-//     </Router>
-//   );
-// };
+  // componentDidMount() {
+  //   console.log('about to fetch posts');
+  //   this.props.fetchPosts();
+  // }
 
-// ReactDOM.render(<App />, document.getElementById('main'));
+  render() {
+    return (
+      <Router>
+        <div id="appmain">
+          <Nav />
+          <Switch>
+            <Route exact path="/" component={Posts} />
+            <Route path="/posts/new" component={NewPost} />
+            <Route path="/posts/:postID" component={Post} />
+            <Route render={() => (<div>post not found </div>)} />
+          </Switch>
+        </div>
+      </Router>
+    );
+  }
+}
+
+export default connect(null, { fetchPosts })(App);
