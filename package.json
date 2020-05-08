@@ -1,9 +1,9 @@
 {
-  "name": "starterpack-kattaylor22",
+  "name": "blog-kattaylor22",
   "version": "y",
   "description": "y",
   "main": "src/index.js",
-  "repository": "https://github.com/dartmouth-cs52-20S/starterpack-kattaylor22.git",
+  "repository": "https://github.com/dartmouth-cs52-20S/lab4-platform-client-kattaylor22",
   "author": "Katherine Taylor <katherine.j.taylor.22@dartmouth.edu>",
   "license": "MIT",
   "private": false,
@@ -12,7 +12,7 @@
     "test": "eslint src/**.js",
     "winbuild": "yarn clean & SET WEBPACK_ENV=production& webpack --colors",
     "clean": "rimraf dist",
-    "windeploy": "yarn build & surge -p dist -d katherinetaylor-cs52-starter.surge.sh. yarn deploy & yarn clean"
+    "windeploy": "yarn winbuild & surge -p dist -d katherinetaylor-cs52-blog.surge.sh. yarn deploy & yarn clean"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
