@@ -18,6 +18,7 @@ class CreatePost extends Component {
     super(props);
     this.state = {
       title: '',
+      content: '',
       tags: '',
       coverUrl: '',
     };
@@ -31,16 +32,15 @@ class CreatePost extends Component {
     this.setState({ tags: event.target.value });
   }
 
+  onContentChange = (event) => {
+    this.setState({ content: event.target.value });
+  }
+
   onCoverChange = (event) => {
     this.setState({ coverUrl: event.target.value });
   }
 
   makePost = (event) => {
-    // this will make a post.. then pass it to the action creater
-    // but how to make a real post
-    console.log('make post called');
-    console.log(this.state.title);
-    console.log(this.props.history);
     this.props.createPost(this.state, this.props.history);
   }
 
@@ -50,6 +50,10 @@ class CreatePost extends Component {
         <div>
           <h2>Title:</h2>
           <input id="title" onChange={this.onTitleChange} value={this.state.title} />
+        </div>
+        <div id="content" onChange={this.onContentChange} value={this.state.content}>
+          <h2>Content:</h2>
+          <input />
         </div>
         <div id="coverURL" onChange={this.onCoverChange} value={this.state.coverUrl}>
           <h2>coverUrl:</h2>

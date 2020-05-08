@@ -4,8 +4,6 @@ import marked from 'marked';
 import { connect } from 'react-redux';
 import { fetchPosts } from '../actions/index';
 // import Post from './post';
-import Counter from './counter';
-import Controls from './controls';
 
 function mapStateToProps(reduxState) {
   return {
@@ -40,14 +38,11 @@ class Posts extends Component {
   }
 
   componentDidMount() {
-    console.log('about to fetch posts');
     this.props.fetchPosts();
   }
 
   render() {
     if (this.props.posts.all.length >= 1) {
-      console.log('now i can');
-      console.log(JSON.stringify(this.props.posts.all));
       const postlist = this.props.posts.all.map((post) => {
         return <a href={`/posts/${post.id}`} key={post.id}> <PostsItem key={post.id} post={post} /> </a>;
       });
@@ -57,12 +52,6 @@ class Posts extends Component {
           <ul>
             {postlist}
           </ul>
-          {/* {JSON.stringify(props.posts)} */}
-          {/* Maybe some posts: {JSON.stringify(props.posts.all)} */}
-          {/* <Post /> */}
-          {/* {console.log(props.posts.all[0])} */}
-          <Counter />
-          <Controls />
         </div>
       );
     } else {

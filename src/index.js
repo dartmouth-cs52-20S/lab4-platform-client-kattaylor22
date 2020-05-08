@@ -88,6 +88,7 @@ ReactDOM.render(
   <Provider store={store}>
     <div id="header">
       <h1>COMPLAIN</h1>
+      <h2 id="subtitle">Enter Complaints Below</h2>
     </div>
     <App />
   </Provider>,

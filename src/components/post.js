@@ -1,8 +1,9 @@
 /* eslint-disable linebreak-style */
+/* eslint-disable react/no-unused-state */
 import React, { Component } from 'react';
 import marked from 'marked';
 import { connect } from 'react-redux';
-import { fetchPost, deletePost } from '../actions/index';
+import { fetchPost, updatePost, deletePost } from '../actions/index';
 // deletePost, updatePost
 
 function mapStateToProps(reduxState) {
@@ -14,109 +15,128 @@ function mapStateToProps(reduxState) {
   };
 }
 
-// make it a class and then do componentDidMount
-// which calls fetchPost and uses the id that's in the link
-// this.props.match.params.postID (what it's called in the link) into the fetchPost function
-// fetch post will get the object
 class Post extends Component {
   // eslint-disable-next-line no-useless-constructor
   constructor(props) {
     super(props);
+
+    this.state = {
+      id: this.props.match.params.postID,
+      title: ' ',
+      tags: ' ',
+      coverUrl: ' ',
+      content: ' ',
+      edit: false,
+    };
   }
 
   componentDidMount() {
-    console.log('in post componentdidmount');
-    console.log(this.props.match.params.postID);
-    // if (this.props.posts.all.length >= 0) {
-    //   this.props.fetchPost(this.props.match.params.postID);
-    //   console.log('called fetch post');
-    // }
     this.props.fetchPost(this.props.match.params.postID);
-    console.log('called fetch post');
   }
 
   delPost = (event) => {
-    console.log('deleting');
     this.props.deletePost(this.props.match.params.postID, this.props.history);
   }
 
-  render() {
-    console.log('rendering individual post');
+  editPost = (event) => {
+    this.setState({
+      title: this.props.currentPost.title,
+      tags: this.props.currentPost.tags,
+      coverUrl: this.props.currentPost.coverUrl,
+      edit: true,
+    });
+    console.log('now editing');
     console.log(this.props.currentPost.title);
-    // console.log(this.props.posts.all);
-    // const postlist = this.props.posts.all.map((post) => {
-    //   if (post.id === this.props.params.postID) {
-    //     return (
-    //       <div>
-    //         <div id="post">
-    //           <h2> {this.props.posts.current.title} </h2>
-    //           <div> {this.props.posts.current.coverURL} </div>
-    //           <h3>Tags: {this.props.posts.current.tags} </h3>
-    //         </div>
-    //         <button id="delete" type="submit" onClick={this.delPost}>Delete Post</button>
-    //       </div>
-    //     );
-    //   } else {
-    //     return (
-    //       <div> {postlist} </div>
-    //     );
-    //   }
-    // });
+    // this.props.fetchPost(this.props.match.params.postID);
+  }
+
+  stopEdit = (event) => {
+    this.setState({ edit: false });
+    this.props.updatePost(this.state);
+  }
+
+  onTitleChange = (event) => {
+    this.setState({ title: event.target.value });
+  }
+
+  onTagChange = (event) => {
+    this.setState({ tags: event.target.value });
+  }
+
+  onCoverChange = (event) => {
+    this.setState({ coverUrl: event.target.value });
+  }
+
+  onContentChange = (event) => {
+    this.setState({ content: event.target.value });
+  }
+
+  editRender = (event) => {
     return (
-      <div>
-        <div id="post">
-          <h2> {this.props.currentPost.title} </h2>
-          <div className="coverURLpost" dangerouslySetInnerHTML={{ __html: marked(this.props.currentPost.coverUrl || '') }} />
-          {/* <div> {this.props.posts.current.coverUrl} </div> */}
-          <h3>Tags: {this.props.currentPost.tags} </h3>
+      <div id="newPost">
+        <div>
+          <h2>Title:</h2>
+          <input id="title" type="text" onChange={this.onTitleChange} value={this.state.title} />
         </div>
-        <button id="delete" type="submit" onClick={this.delPost}>Delete Post</button>
+        <div>
+          <h2>coverUrl:</h2>
+          <input id="coverURL" type="text" onChange={this.onCoverChange} value={this.state.coverUrl} />
+        </div>
+        <div>
+          <h2>Content:</h2>
+          <input id="content" type="text" onChange={this.onContentChange} value={this.state.content} />
+        </div>
+        <div>
+          <h2>Tags:</h2>
+          <input id="Tags" onChange={this.onTagChange} value={this.state.tags} />
+        </div>
+        <button id="submit" type="submit" onClick={this.stopEdit}>Finish</button>
+        {/* <button type="submit" onClick={(e) => this.newNote(this.state.searchterm, e)}>Create Note</button> */}
       </div>
     );
-    // if (this.props.posts.current.id === this.props.match.params.postID) {
-    //   return (
-    //     <div>
-    //       <h2> A singel post page </h2>
-    //       <div> {this.props.posts.current.id} </div>
-    //       <h3> After ID </h3>
+  }
+
+  render() {
+    console.log('redering nonedit');
+    console.log(this.props.currentPost.title);
+    if (this.state.edit === true) {
+      return this.editRender();
+    } else {
+      return (
+        <div>
+          <div id="post">
+            <h2> {this.props.currentPost.title} </h2>
+            <h3 id="content"> {this.props.currentPost.content} </h3>
+            <div className="coverURLpost" dangerouslySetInnerHTML={{ __html: marked(this.props.currentPost.coverUrl || '') }} />
+            {/* <div> {this.props.posts.current.coverUrl} </div> */}
+            <h3 id="tags">Tags: {this.props.currentPost.tags} </h3>
+          </div>
+          <div id="buttons">
+            <button id="delete" type="submit" onClick={this.delPost}>Delete Post</button>
+            <button id="delete" type="submit" onClick={this.editPost}>Edit Post</button>
+          </div>
+        </div>
+      );
+    }
+    // return (
+    //   <div>
+    //     <div id="post">
+    //       <h2> {this.props.currentPost.title} </h2>
+    //       <div className="coverURLpost" dangerouslySetInnerHTML={{ __html: marked(this.props.currentPost.coverUrl || '') }} />
+    //       {/* <div> {this.props.posts.current.coverUrl} </div> */}
+    //       <h3>Tags: {this.props.currentPost.tags} </h3>
     //     </div>
-    //   );
-    // } else {
-    //   return (
-    //     <div> ruh roh</div>
-    //   );
-    // }
+    //     <div id="buttons">
+    //       <button id="delete" type="submit" onClick={this.delPost}>Delete Post</button>
+    //       <button id="edit" type="submit" onClick={this.editPost}>Edit Post</button>
+    //     </div>
+    //   </div>
+    // );
   }
 }
 
-// const Post = (props) => {
-//   console.log('my props.post is');
-//   console.log(props.post);
-//   return (
-//     <a onClick={() => props.fetchPost(props.post.id)} href={`/posts/${props.post.id}`}>
-//       {/* <div> ID: {props.match.params.id} </div> */}
-//       {/* {JSON.stringify(props.posts)} */}
-//       {JSON.stringify(props.post)}
-//       {/* Click to call fetchposts:
-//       <button type="button" onClick={props.fetchPosts}>Show all posts</button> */}
-//       {/* Maybe some posts: {JSON.stringify(props.posts.all)} */}
-//       {/* {console.log(props)} */}
-//     </a>
-//   );
-// };
-// // <a onClick={() => props.fetchPost(props.post.id)}>
-//   {/* href={`/posts/${props.post.id}`} */}
-//   {/* <div> ID: {props.match.params.id} </div> */}
-//   {/* {JSON.stringify(props.posts)} */}
-//   // {JSON.stringify(props.post)}
-//   {/* Click to call fetchposts:
-//   <button type="button" onClick={props.fetchPosts}>Show all posts</button> */}
-//   {/* Maybe some posts: {JSON.stringify(props.posts.all)} */}
-//   {/* {console.log(props)} */}
-// // </a>
-// JSON.stringify(this.props.post)
 
 // enables this.props.currentPost
 // and this.props.fetchPost, this.props.deletePost, and this.props.updatePost
-export default connect(mapStateToProps, { fetchPost, deletePost })(Post);
+export default connect(mapStateToProps, { fetchPost, deletePost, updatePost })(Post);
 // deletePost, updatePost

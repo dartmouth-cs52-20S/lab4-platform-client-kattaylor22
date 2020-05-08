@@ -16,8 +16,6 @@ const Nav = (props) => {
       <ul>
         <li><NavLink id="link" to="/" exact>Posts</NavLink></li>
         <li><NavLink id="link" to="/posts/new">New Post</NavLink></li>
-        {/* <li><NavLink id="link" to="/posts/id1">test id1</NavLink></li> */}
-        {/* <li><NavLink to={posts/${post.id}}>Post id1</NavLink></li> */}
       </ul>
     </nav>
   );
@@ -45,10 +43,6 @@ class App extends Component {
     super(props);
   }
 
-  // componentDidMount() {
-  //   console.log('about to fetch posts');
-  //   this.props.fetchPosts();
-  // }
 
   render() {
     return (
