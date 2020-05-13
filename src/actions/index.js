@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 // keys for actiontypes
-const ROOT_URL = 'https://platform.cs52.me/api';
+const ROOT_URL = 'http://localhost:9090/api';
 const API_KEY = '?key=K_TAYLOR';
 
 export const ActionTypes = {
@@ -12,6 +12,7 @@ export const ActionTypes = {
   FETCH_POST: 'FETCH_POST',
   CREATE_POST: 'CREATE_POST',
   DELETE_POST: 'DELETE_POST',
+  ERROR_SET: 'ERROR_SET',
   UPDATE_POST: 'UPDATE_POST',
 };
 
