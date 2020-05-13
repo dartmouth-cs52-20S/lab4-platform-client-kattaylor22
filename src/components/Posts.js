@@ -21,7 +21,7 @@ const PostsItem = (props) => {
         {props.post.title}
       </h2>
       <div id="coverURL">
-        <div className="coverURLpost" dangerouslySetInnerHTML={{ __html: marked(props.post.coverUrl || '') }} />
+        <div className="coverURLpost" dangerouslySetInnerHTML={{ __html: marked(`![](${props.post.coverUrl})` || '') }} />
         {/* {props.post.coverUrl} */}
       </div>
       <h3 id="tags">

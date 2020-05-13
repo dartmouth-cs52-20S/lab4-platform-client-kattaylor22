@@ -107,7 +107,7 @@ class Post extends Component {
           <div id="post">
             <h2> {this.props.currentPost.title} </h2>
             <h3 id="content"> {this.props.currentPost.content} </h3>
-            <div className="coverURLpost" dangerouslySetInnerHTML={{ __html: marked(this.props.currentPost.coverUrl || '') }} />
+            <div className="coverURLpost" dangerouslySetInnerHTML={{ __html: marked(`![](${this.props.currentPost.coverUrl})` || '') }} />
             {/* <div> {this.props.posts.current.coverUrl} </div> */}
             <h3 id="tags">Tags: {this.props.currentPost.tags} </h3>
           </div>
