@@ -2,8 +2,8 @@
 import axios from 'axios';
 
 // keys for actiontypes
-// const ROOT_URL = 'https://lab5-kattaylor22.herokuapp.com/api';
-const ROOT_URL = 'http://localhost:9090/api';
+const ROOT_URL = 'https://lab5-kattaylor22.herokuapp.com/api';
+// const ROOT_URL = 'http://localhost:9090/api';
 const API_KEY = '?key=K_TAYLOR';
 
 export const ActionTypes = {
