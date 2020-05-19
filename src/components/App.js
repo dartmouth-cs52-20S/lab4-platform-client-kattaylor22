@@ -2,24 +2,28 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
-  BrowserRouter as Router, Switch, Route, NavLink,
+  BrowserRouter as Router, Switch, Route,
 } from 'react-router-dom';
 import { fetchPosts } from '../actions/index';
 import CreatePost from './CreatePost';
 import Posts from './Posts';
 import Post from './Post';
+import SignUp from './SignUp';
+import SignIn from './SignIn';
+import NavBar from './NavBar';
+import PrivateRoute from './privateRoute';
 
 
-const Nav = (props) => {
-  return (
-    <nav id="nav">
-      <ul>
-        <li><NavLink id="link" to="/" exact>Posts</NavLink></li>
-        <li><NavLink id="link" to="/posts/new">New Post</NavLink></li>
-      </ul>
-    </nav>
-  );
-};
+// const Nav = (props) => {
+//   return (
+//     <nav id="nav">
+//       <ul>
+//         <li><NavLink id="link" to="/" exact>Posts</NavLink></li>
+//         <li><NavLink id="link" to="/posts/new">New Post</NavLink></li>
+//       </ul>
+//     </nav>
+//   );
+// };
 
 const NewPost = (props) => {
   return (
@@ -48,11 +52,15 @@ class App extends Component {
     return (
       <Router>
         <div id="appmain">
-          <Nav />
+          {/* <Nav /> */}
+          <NavBar />
           <Switch>
             <Route exact path="/" component={Posts} />
-            <Route path="/posts/new" component={NewPost} />
+            <PrivateRoute path="/posts/new" component={NewPost} />
+            {/* <Route path="/posts/new" component={NewPost} /> */}
             <Route path="/posts/:postID" component={Post} />
+            <Route path="/signin" component={SignIn} />
+            <Route path="/signup" component={SignUp} />
             <Route render={() => (<div>post not found </div>)} />
           </Switch>
         </div>

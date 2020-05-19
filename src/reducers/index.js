@@ -5,10 +5,12 @@ import { combineReducers } from 'redux';
 
 import CountReducer from './count-reducer';
 import PostsReducer from './post-reducer';
+import AuthReducer from './auth-reducer';
 
 const rootReducer = combineReducers({
   count: CountReducer,
   posts: PostsReducer,
+  auth: AuthReducer,
 });
 
 
