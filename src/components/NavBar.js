@@ -18,12 +18,6 @@ function mapStateToProps(reduxState) {
   console.log(this);
 }
 
-// const signOutHelp = (history) => {
-//   console.log('my iknowledge of history is');
-//   console.log(history);
-//   this.props.signoutUser(history);
-// };
-
 // worked on this with Alex Feng
 const authHelp = (auth, signout, history) => {
   if (auth) {

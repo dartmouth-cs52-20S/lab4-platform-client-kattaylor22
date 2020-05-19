@@ -14,17 +14,6 @@ import NavBar from './NavBar';
 import PrivateRoute from './privateRoute';
 
 
-// const Nav = (props) => {
-//   return (
-//     <nav id="nav">
-//       <ul>
-//         <li><NavLink id="link" to="/" exact>Posts</NavLink></li>
-//         <li><NavLink id="link" to="/posts/new">New Post</NavLink></li>
-//       </ul>
-//     </nav>
-//   );
-// };
-
 const NewPost = (props) => {
   return (
     <div>
@@ -33,20 +22,12 @@ const NewPost = (props) => {
   );
 };
 
-// function mapStateToProps(reduxState) {
-//   return {
-//     posts: reduxState.posts,
-//     // currentPost: reduxState.posts.current,
-//   };
-// }
-
 // eslint-disable-next-line react/prefer-stateless-function
 class App extends Component {
   // eslint-disable-next-line no-useless-constructor
   constructor(props) {
     super(props);
   }
-
 
   render() {
     return (
